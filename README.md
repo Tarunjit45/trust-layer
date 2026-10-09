@@ -1,72 +1,85 @@
-# 🚀 trust-layer
+# 🛡️ Trust Layer — Enterprise AI Security & Compliance Gateway
 
-![Language](https://img.shields.io/badge/Language-TypeScript-blue?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Production-Active-success?style=for-the-badge)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org/)
+[![Azure OpenAI](https://img.shields.io/badge/AI-Azure%20OpenAI-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
+[![Node.js](https://img.shields.io/badge/Runtime-Node.js%2018+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-## 📌 Overview
+**Trust Layer** is an enterprise middleware gateway that intercepts, sanitizes, and audits interactions between internal applications and frontier LLMs. Integrated with **Azure OpenAI** (`@azure/openai`), Trust Layer enforces strict data governance, redacts Personally Identifiable Information (PII), blocks adversarial prompt injections, and guarantees cryptographic audit logging.
 
-A high-performance application engineered by Tarunjit Biswas for quality and scalability.
+---
 
-## ✨ Key Features & Architecture
+## 📌 Architecture & Gateway Flow
 
-- **High-Performance Codebase:** Built using `TypeScript` and modern engineering principles.
-- **Modular & Scalable Design:** Structured directory tree for seamless development and deployment.
-- **Artificial Intelligence Integration:** Native support for LLM pipelines, prompt engineering, and intelligent processing.
+```
+[ Internal Enterprise App / Agent ]
+                 |
+                 v  (HTTP / gRPC)
++-------------------------------------------------------------+
+|                    Trust Layer Gateway                      |
+|         - PII & Confidential Data Masking                   |
+|         - Prompt Injection & Jailbreak Filtering            |
+|         - Policy Verification & Content Moderation          |
++-------------------------------------------------------------+
+                 |
+                 v  (Sanitized & Enforced Payload)
++-------------------------------------------------------------+
+|                Azure OpenAI Frontier Models                 |
+|                   (`@azure/openai` SDK)                     |
++-------------------------------------------------------------+
+                 |
+                 v  (Model Response)
++-------------------------------------------------------------+
+|                 Output Safety Verification                  |
+|         - Hallucination check & toxicity filter             |
++-------------------------------------------------------------+
+                 |
+                 v
+[ Secure Response returned with Audit Signature ]
+```
 
-## 🛠️ Tech Stack & Dependencies
+---
 
-- **Core Language:** `TypeScript`
-- **Libraries & Tools:** OpenAI API, TypeScript
-- **Deployment Infrastructure:** Vercel Edge / Cloud Services
-
-## 📁 Architecture & File Layout
+## 📁 Repository Structure
 
 ```text
 trust-layer/
-├── .github
-├── .github/ISSUE_TEMPLATE
-├── .github/ISSUE_TEMPLATE/bug_report.md
-├── .github/ISSUE_TEMPLATE/feature_request.md
-├── .github/PULL_REQUEST_TEMPLATE.md
-├── .github/workflows
-├── .github/workflows/ci.yml
-├── .gitignore
-├── CODE_OF_CONDUCT.md
-├── CONTRIBUTING.md
-├── LICENSE
-├── README.md
-├── backend
-├── backend/.env.example
-├── backend/package-lock.json
-└── ... [additional codebase files]
+├── backend/
+│   ├── src/            # Middleware controllers, PII scrubbers & policy engines
+│   ├── package.json    # Dependencies (@azure/openai, express, dotenv)
+│   └── tsconfig.json   # TypeScript compilation settings
+├── LICENSE             # MIT License
+└── README.md
 ```
 
-## 🚀 Quickstart & Installation
+---
 
-### Prerequisites
-- Node.js (v18.0.0 or higher)
-- npm or yarn package manager
+## 🚀 Getting Started
 
-### Setup Instructions
+### 1. Installation
+```bash
+git clone https://github.com/Tarunjit45/trust-layer.git
+cd trust-layer/backend
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Tarunjit45/trust-layer.git
-   cd trust-layer
-   ```
+npm install
+```
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+### 2. Configure Azure OpenAI Environment
+Create a `.env` file in `backend/`:
 
-3. **Launch development server:**
-   ```bash
-   npm run dev
-   ```
+```env
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_API_KEY=your_azure_openai_key
+AZURE_OPENAI_DEPLOYMENT=gpt-4o
+```
 
-## 📜 Author & License
+### 3. Build & Run
+```bash
+npm run build
+npm start
+```
 
-Architected & Developed by **[Tarunjit Biswas](https://github.com/Tarunjit45)**.  
-Distributed under the **MIT License**.
+---
+
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
